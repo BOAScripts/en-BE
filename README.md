@@ -149,7 +149,6 @@ locale-installer/
 ├── locales/                # Locale definition files
 │   └── en_BE.UTF-8         # Belgian English locale
 ├── docs/                   # Documentation
-├── examples/               # Usage examples
 └── .github/                # GitHub configuration
 ```
 
