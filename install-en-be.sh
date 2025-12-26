@@ -5,7 +5,7 @@ set -euo pipefail
 readonly LOCALE_NAME="en_BE.UTF-8"
 readonly LOCALE_FILE="/usr/share/i18n/locales/en_BE"
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly LOCAL_LOCALE_FILE="${SCRIPT_DIR}/locales/en_BE"
+readonly LOCAL_LOCALE_FILE="${SCRIPT_DIR}/locales/en_BE.UTF-8"
 readonly BACKUP_DIR="${HOME}/.locale_backups"
 readonly TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
