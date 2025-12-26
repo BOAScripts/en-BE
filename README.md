@@ -8,8 +8,6 @@ A comprehensive bash script to install and configure the Belgian English locale 
 - **Automatic backups** before making system changes
 - **Restore functionality** to revert changes if needed
 - **Live examples** of date, time, and currency formatting
-- **Multiple operation modes** for different use cases
-- **Safe execution** with proper error handling
 
 ## Quick Start
 
