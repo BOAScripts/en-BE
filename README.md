@@ -1,4 +1,22 @@
-# Locale Installer for en_BE.UTF-8
+# Locale English Belgium (en_BE)
+
+```bash
+git clone https://github.com/BOAScripts/en-BE.git
+sudo cp locales/en_BE.UTF8 /usr/share/i18n/locales/en_BE
+sudo localedef -i en_BE -c -f UTF-8 en_BE
+echo "en_BE.UTF-8 UTF-8" | sudo tee -a /etc/locale.gen
+sudo locale-gen
+```
+
+# Installer for en_BE.UTF-8
+
+```bash
+git clone https://github.com/BOAScripts/en-BE.git
+./en-BE/install-en-be.sh --examples
+./en-BE/install-en-be.sh --install
+./en-BE/install-en-be.sh --list-backups
+./en-BE/install-en-be.sh --help
+```
 
 A comprehensive bash script to install and configure the Belgian English locale (en_BE.UTF-8) on Linux systems, with built-in backup/restore functionality.
 
