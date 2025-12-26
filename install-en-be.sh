@@ -104,14 +104,36 @@ restore_config() {
 }
 
 # Display locale examples
+# Display locale examples
 show_locale_examples() {
   echo
   echo "==> Testing $LOCALE_NAME formatting"
   echo "===================================="
   echo
 
-  # Temporarily set locale for examples
-  export LC_ALL="$LOCALE_NAME"
+  # Check if locale is available in current session
+  if ! locale -a 2>/dev/null | grep -qi "^en_be\.utf8$"; then
+    echo "Note: Locale installed but not yet available in current session"
+    echo "Please log out and back in, then run: $0 --examples"
+    echo
+    echo "Expected formatting after session restart:"
+    echo "  Date format:     dd/mm/yyyy (e.g., 26/12/2025)"
+    echo "  Time format:     24-hour (e.g., 18:00)"
+    echo "  Decimal sep:     , (comma)"
+    echo "  Thousands sep:   . (period)"
+    echo "  Currency:        € (Euro)"
+    echo
+    return 0
+  fi
+
+  # Try to set locale, suppress error if it fails
+  if ! export LC_ALL="$LOCALE_NAME" 2>/dev/null; then
+    echo "Note: Locale not yet available in current shell session"
+    echo "Please log out and back in, then run: $0 --examples"
+    echo
+    return 0
+  fi
+
   export LANG="$LOCALE_NAME"
 
   echo "Date & Time Examples:"
@@ -146,7 +168,6 @@ EOF
   echo "  Currency:        € (Euro)"
   echo
 }
-
 # Verify locale installation
 verify_locale() {
   if locale -a 2>/dev/null | grep -qi "^en_be\.utf8$"; then
