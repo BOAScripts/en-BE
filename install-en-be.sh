@@ -9,6 +9,46 @@ readonly LOCAL_LOCALE_FILE="${SCRIPT_DIR}/locales/en_BE.UTF-8"
 readonly BACKUP_DIR="${HOME}/.locale_backups"
 readonly TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
+# Detect distribution type
+detect_distro() {
+  if [[ -f /etc/os-release ]]; then
+    . /etc/os-release
+    echo "$ID"
+  elif [[ -f /etc/debian_version ]]; then
+    echo "debian"
+  else
+    echo "unknown"
+  fi
+}
+
+# Get the appropriate locale config file
+get_locale_config_file() {
+  local distro
+  distro=$(detect_distro)
+
+  case "$distro" in
+    debian|ubuntu|pop|linuxmint)
+      echo "/etc/default/locale"
+      ;;
+    arch|manjaro)
+      echo "/etc/locale.conf"
+      ;;
+    fedora|rhel|centos|rocky|almalinux)
+      echo "/etc/locale.conf"
+      ;;
+    *)
+      # Try to detect which file exists
+      if [[ -f /etc/default/locale ]]; then
+        echo "/etc/default/locale"
+      elif [[ -f /etc/locale.conf ]]; then
+        echo "/etc/locale.conf"
+      else
+        echo "/etc/locale.conf"  # Default fallback
+      fi
+      ;;
+  esac
+}
+
 # Check if running with sufficient privileges for system modifications
 check_privileges() {
   if [[ $EUID -eq 0 ]]; then
@@ -167,6 +207,7 @@ EOF
   echo "  Currency:        € (Euro)"
   echo
 }
+
 # Verify locale installation
 verify_locale() {
   if locale -a 2>/dev/null | grep -qi "^en_be\.utf8$"; then
@@ -208,6 +249,36 @@ install_locale() {
   echo "==> Locale $LOCALE_NAME installed successfully"
 }
 
+# Update system locale configuration
+update_system_locale() {
+  local locale_config_file
+  locale_config_file=$(get_locale_config_file)
+
+  echo "==> Detected locale config file: $locale_config_file"
+
+  # For Debian-based systems, we need to update the file differently
+  if [[ "$locale_config_file" == "/etc/default/locale" ]]; then
+    # Debian/Ubuntu style
+    if [[ -f "$locale_config_file" ]]; then
+      # Update existing file
+      sudo sed -i '/^LANG=/d' "$locale_config_file"
+      sudo sed -i '/^LANGUAGE=/d' "$locale_config_file"
+    fi
+    {
+      echo "LANG=$LOCALE_NAME"
+      echo "LANGUAGE=${LOCALE_NAME%%.*}"
+    } | sudo tee -a "$locale_config_file" >/dev/null
+  else
+    # Arch/Fedora style
+    echo "LANG=$LOCALE_NAME" | sudo tee "$locale_config_file" >/dev/null
+  fi
+
+  # Also update using update-locale if available (Debian/Ubuntu)
+  if command -v update-locale &>/dev/null; then
+    sudo update-locale LANG="$LOCALE_NAME" LANGUAGE="${LOCALE_NAME%%.*}"
+  fi
+}
+
 # Prompt user to change system-wide LANG
 prompt_lang_change() {
   local current_lang
@@ -220,7 +291,7 @@ prompt_lang_change() {
 
   if [[ "$answer" =~ ^[Yy]$ ]]; then
     backup_config
-    echo "LANG=$LOCALE_NAME" | sudo tee /etc/locale.conf >/dev/null
+    update_system_locale
     echo "==> LANG updated to $LOCALE_NAME"
     echo "==> Please log out and back in for changes to take effect"
   else
