@@ -104,7 +104,6 @@ restore_config() {
 }
 
 # Display locale examples
-# Display locale examples
 show_locale_examples() {
   echo
   echo "==> Testing $LOCALE_NAME formatting"
