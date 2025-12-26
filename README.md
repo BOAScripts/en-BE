@@ -16,7 +16,7 @@ A comprehensive bash script to install and configure the Belgian English locale 
 ```bash
 # Clone the repository
 git clone https://github.com/BOAScripts/en-BE.git
-cd bin
+cd en-BE/bin
 
 # Make the script executable
 chmod +x install-en-be.sh
