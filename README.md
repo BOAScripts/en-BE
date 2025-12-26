@@ -179,7 +179,7 @@ MIT License - see [LICENSE](LICENSE) file for details
 ## Acknowledgments
 
 - Locale definition based on POSIX standards
-- Inspired by the need for proper Belgian formatting
+- [Credits](docs/CREDITS.md)
 - Community contributions welcome
 
 ## Support
@@ -190,7 +190,7 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## Changelog
 
-### v1.0.0 (2026-01-01)
+### v1.0.0 (2026-12-26)
 - Initial release
 - en_BE.UTF-8 locale support
 - Backup/restore functionality
