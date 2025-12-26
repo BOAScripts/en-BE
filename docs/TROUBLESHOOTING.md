@@ -48,7 +48,7 @@ export LC_ALL=en_BE.UTF-8
 
 **Solution**: Create fresh backup
 ```bash
-./install_locale.sh --backup
+./install-en-be.sh --backup
 ```
 
 ### Cannot Find Backups

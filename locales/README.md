@@ -2,7 +2,7 @@
 
 This directory contains locale definition files used by the installer.
 ```
-wget -o https://
+wget -o https://raw.githubusercontent.com/BOAScripts/en-BE/refs/heads/main/locales/en_BE.UTF-8
 ```
 
 ## en_BE.UTF-8
@@ -33,4 +33,9 @@ LC_ALL=test_locale date
 3. Document the formatting conventions
 4. Update the main script to support it
 
-# Th
+## Acknowledgments
+
+- Original locale definition by **Yannick Vanhaeren** (2017) - [GitHub Gist](https://gist.github.com/yvh/630368018d7c683aca8da9e2baf7bfb9)
+- Locale definition based on POSIX standards
+- Inspired by the need for proper Belgian formatting
+- Community contributions welcome
