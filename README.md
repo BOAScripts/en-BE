@@ -186,8 +186,8 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/locale-installer/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/locale-installer/discussions)
+- **Issues**: [GitHub Issues](https://github.com/BOAScripts/en-BE/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/BOAScripts/en-BE/discussions)
 - **Documentation**: [docs/](docs/)
 
 ## Changelog
