@@ -12,7 +12,7 @@ git clone https://github.com/BOAScripts/en-BE.git
 ./en-BE/install-en-be.sh --help
 ```
 
-This project defines an English locale with Belgian regional formats. Its goal is inclusion in glibc so distributions can offer `en_BE.UTF-8` directly. This covers distributions that enumerate glibc locales, such as Arch, and gives installers such as Debian's `localechooser` a valid locale for the combination of English and Belgium. Without it, users must select another territory or assemble equivalent Belgian formatting through `LC_*` overrides.
+This project defines an English locale with Belgian regional formats. Its long-term goal is inclusion in glibc so Linux distributions can generate and offer `en_BE.UTF-8` as a normal locale, without requiring users to assemble equivalent `LC_*` overrides themselves.
 
 The included Bash script installs and configures the locale locally on Arch-based, Debian-based, and RHEL-based systems while it is not yet available upstream.
 
