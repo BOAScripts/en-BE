@@ -8,7 +8,7 @@ wget -O en_BE.UTF-8 https://raw.githubusercontent.com/BOAScripts/en-BE/refs/head
 ## en_BE.UTF-8
 
 Belgian English locale with proper formatting for:
-- Dates (dd/mm/yyyy)
+- Dates (dd/mm/yy)
 - Times (24-hour format)
 - Numbers (period as thousands separator)
 - Currency (Euro with comma as decimal separator)

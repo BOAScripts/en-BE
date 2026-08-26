@@ -107,9 +107,9 @@ View all stored configuration backups:
 ## Belgian Locale Format Examples
 
 ### Date & Time
-- **Date format**: dd/mm/yyyy (e.g., 26/12/2025)
+- **Date format**: dd/mm/yy (e.g., 26/12/25)
 - **Time format**: 24-hour clock (e.g., 18:00)
-- **Full datetime**: 26/12/2025 18:00:00
+- **Full datetime**: 26/12/25 18:00:00
 
 ### Numbers & Currency
 - **Decimal separator**: comma (,)
@@ -211,6 +211,7 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 - Locale definition based on POSIX standards
 - [Credits](docs/CREDITS.md)
+- [Locale data decisions and sources](docs/LOCALE-DATA.md)
 - Community contributions welcome
 
 ## Support

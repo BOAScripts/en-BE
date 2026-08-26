@@ -39,6 +39,10 @@ locale_available() {
   locale -a 2>/dev/null | grep -Eiq '^en_BE[.]utf-?8$'
 }
 
+locale_source_current() {
+  [[ -r "$LOCALE_FILE" ]] && cmp -s -- "$LOCAL_LOCALE_FILE" "$LOCALE_FILE"
+}
+
 check_prerequisites() {
   local family="$1"
   require_command locale
@@ -292,7 +296,12 @@ main() {
       family="$(detect_distro_family)"
       [[ "$family" != unsupported ]] || { echo "Error: supported families are Arch, Debian, and RHEL" >&2; exit 1; }
       check_prerequisites "$family"
-      if locale_available; then echo "==> $LOCALE_NAME is already installed"; else backup_config; install_locale "$family"; fi
+      if locale_available && locale_source_current; then
+        echo "==> $LOCALE_NAME is already installed and current"
+      else
+        backup_config
+        install_locale "$family"
+      fi
       show_locale_examples
       ;;
     --set-default)
