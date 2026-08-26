@@ -15,14 +15,25 @@ This will:
 2. Create a backup of current settings
 3. Download and install en_BE.UTF-8
 4. Show formatting examples
-5. Prompt to set as system default
 
-### Silent Installation
-
-Set environment variable to skip prompts:
+### Set the system default separately
 
 ```bash
-AUTO_CONFIRM=yes ./install-en-be.sh
+./install-en-be.sh --set-default
+```
+
+### Set the current user's default
+
+```bash
+./install-en-be.sh --set-user-default
+```
+
+This supports Bash and Zsh login profiles. Existing profiles are backed up before modification.
+
+Override the detected profile when needed:
+
+```bash
+EN_BE_PROFILE="$ZDOTDIR/.zshenv" ./install-en-be.sh --set-user-default
 ```
 
 ## Advanced Usage

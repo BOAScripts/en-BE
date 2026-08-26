@@ -1,24 +1,18 @@
 # Locale English Belgium (en_BE)
 
-```bash
-git clone https://github.com/BOAScripts/en-BE.git
-sudo cp locales/en_BE.UTF8 /usr/share/i18n/locales/en_BE
-sudo localedef -i en_BE -c -f UTF-8 en_BE
-echo "en_BE.UTF-8 UTF-8" | sudo tee -a /etc/locale.gen
-sudo locale-gen
-```
-
 # Installer for en_BE.UTF-8
 
 ```bash
 git clone https://github.com/BOAScripts/en-BE.git
 ./en-BE/install-en-be.sh --examples
 ./en-BE/install-en-be.sh --install
+./en-BE/install-en-be.sh --set-user-default
+./en-BE/install-en-be.sh --set-default
 ./en-BE/install-en-be.sh --list-backups
 ./en-BE/install-en-be.sh --help
 ```
 
-A comprehensive bash script to install and configure the Belgian English locale (en_BE.UTF-8) on Linux systems, with built-in backup/restore functionality.
+A Bash script to install and configure the Belgian English locale on Arch-based, Debian-based, and RHEL-based systems.
 
 ## Features
 
@@ -43,18 +37,39 @@ chmod +x install-en-be.sh
 
 ## Requirements
 
-- Linux system with systemd-based locale management
+- An Arch-based, Debian-based, or RHEL-based Linux system
 - `sudo` privileges
+- RHEL: `glibc-locale-source`
 - Optional: `python3` for enhanced formatting examples
 
 ## Usage
 
 ### Install Locale
 
-Install the en_BE.UTF-8 locale and optionally set it as system default:
+Install the en_BE.UTF-8 locale without changing the system default:
 
 ```bash
 ./install-en-be.sh --install
+```
+
+Set it as the system default in a separate, backed-up operation:
+
+```bash
+./install-en-be.sh --set-default
+```
+
+Or configure it only for the current Bash or Zsh user:
+
+```bash
+./install-en-be.sh --set-user-default
+```
+
+The user action updates the login profile and backs up an existing profile first. It sets `LANG=en_BE.UTF-8` and unsets inherited `LC_*` overrides so Belgian formatting takes effect.
+
+For a custom profile location, such as a Zsh environment file:
+
+```bash
+EN_BE_PROFILE="$ZDOTDIR/.zshenv" ./install-en-be.sh --set-user-default
 ```
 
 ### View Formatting Examples
@@ -118,8 +133,7 @@ Backups are stored in `~/.locale_backups/` with timestamps.
 3. **Creates backup** of current configuration (automatic)
 4. **Updates** `/etc/locale.gen` with the new locale
 5. **Generates** the locale files
-6. **Prompts** to set as system default (optional)
-7. **Shows examples** of the new locale formatting
+6. **Shows examples** of the new locale formatting
 
 ## Supported Distributions
 
@@ -127,7 +141,7 @@ Tested on:
 - Debian 12+
 - Arch Linux
 
-Should work on most systemd-based distributions with standard locale management.
+The installer rejects other distribution families instead of guessing which configuration to change.
 
 ## Troubleshooting
 
@@ -186,8 +200,8 @@ To add support for additional locales:
 ## Safety Features
 
 - **Automatic backups** before any system changes
-- **Error handling** with rollback capability
-- **Privilege checking** to prevent accidental root execution
+- **Validated restore archives** limited to known locale files
+- **Preserves existing LC_* settings** when changing `LANG`
 
 ## License
 
@@ -207,7 +221,7 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## Changelog
 
-### v1.0.0 (2026-12-26)
+### v1.0.0 (2025-12-26)
 - Initial release
 - en_BE.UTF-8 locale support
 - Backup/restore functionality

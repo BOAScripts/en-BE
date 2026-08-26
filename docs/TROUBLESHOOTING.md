@@ -69,12 +69,13 @@ sudo locale-gen
 ### Debian/Ubuntu
 ```bash
 sudo apt install locales
-sudo dpkg-reconfigure locales
+./install-en-be.sh --install
 ```
 
 ### Fedora/RHEL
 ```bash
-sudo dnf install glibc-langpack-en
+sudo dnf install glibc-locale-source
+./install-en-be.sh --install
 ```
 
 ## Getting Help

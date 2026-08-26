@@ -2,7 +2,7 @@
 
 This directory contains locale definition files used by the installer.
 ```
-wget -o https://raw.githubusercontent.com/BOAScripts/en-BE/refs/heads/main/locales/en_BE.UTF-8
+wget -O en_BE.UTF-8 https://raw.githubusercontent.com/BOAScripts/en-BE/refs/heads/main/locales/en_BE.UTF-8
 ```
 
 ## en_BE.UTF-8
