@@ -6,6 +6,24 @@ Belgium has glibc locales for French, Dutch, and German, but no locale for peopl
 
 The project does not try to define a separate dialect of English. It provides an international language in a Belgian regional context and avoids choosing French, Dutch, or German conventions without a stated reason.
 
+## Why a complete locale
+
+Users can approximate this setup by selecting `en_GB` and overriding individual `LC_*` categories with existing Belgian locales. That is a useful local workaround, but it does not define an `en_BE` locale:
+
+- there is no single locale identifier that can be assigned to `LANG` or passed to `setlocale` for every category;
+- each user or administrator must maintain the category overrides;
+- graphical sessions and applications do not always inherit shell-specific overrides consistently;
+- distributions cannot generate, package, or present a glibc locale that glibc does not provide.
+
+The goal of upstreaming `en_BE` is to make English for Belgium a normal glibc locale. This supports two common distribution models:
+
+- Distributions such as Arch derive their available system locales directly from glibc. Once `en_BE` is present in glibc and reaches the distribution package, tools such as `archinstall` can offer it from `/usr/share/i18n/SUPPORTED` without carrying a separate locale definition.
+- Installers such as Debian's `localechooser` combine an interface language with a country and validate the result against the locales supplied by glibc. An upstream `en_BE` gives them a valid result for English plus Belgium, although the installer may still need to update its own selection data.
+
+Without `en_BE`, a user who wants an English interface with Belgian regional conventions must choose a different English territory or construct a mixed environment from `en_GB` and `fr_BE`, `nl_BE`, or `de_BE` category overrides. Neither option represents English for Belgium as one supported locale. Upstream inclusion lets distributions, users, and applications select `en_BE.UTF-8` directly.
+
+Inclusion in glibc is the required base, not a guarantee that every desktop environment or application will list `en_BE` immediately. Some software uses its own locale catalogue, such as CLDR or ICU, and may need separate support.
+
 ## Reuse policy
 
 Choose locale data in this order:
